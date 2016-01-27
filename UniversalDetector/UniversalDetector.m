@@ -10,63 +10,59 @@
 #import "UniversalDetector.h"
 #import "uchardet.h"
 
-
-
 @implementation UniversalDetector
 
-- (id)init
-{
+- (instancetype)init{
     self = [super init];
-    
-    if (self)
-    {
+    if (self){
         _detector = uchardet_new();
     }
-    
     return self;
 }
 
-
-- (void)dealloc
-{
+- (void)dealloc{
     uchardet_delete(_detector);
 }
 
-
-- (CFStringEncoding)encodingWithData:(NSData *)data
-{
-    NSString *encodingName      = [self encodingAsStringWithData:data];
-    if ([encodingName isEqualToString:@""]) {
-        return kCFStringEncodingInvalidId;
+- (NSStringEncoding)encodingWithData:(NSData *)data{
+    
+    NSString *encodingName = [self encodingAsStringWithData:data];
+    if ([encodingName isEqualToString:@""] || encodingName==nil) {
+        return NSASCIIStringEncoding;
     }
 
-    CFStringEncoding encoding   = CFStringConvertIANACharSetNameToEncoding((CFStringRef)encodingName);
-    return encoding;
+    CFStringEncoding encoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)encodingName);
+    if(encoding==kCFStringEncodingInvalidId) {
+        return NSASCIIStringEncoding;
+    }
+    
+    // UniversalDetector detects CP949 but returns "EUC-KR" because CP949 lacks an IANA name.
+    // Kludge to make strings decode properly anyway.
+    if(encoding==kCFStringEncodingEUC_KR) {
+        encoding=kCFStringEncodingDOSKorean;
+    };
+    
+    NSStringEncoding result = CFStringConvertEncodingToNSStringEncoding(encoding);
+    if (result==0){
+        result = NSASCIIStringEncoding;
+    }
+    return result;
 }
 
-
-- (NSString *)encodingAsStringWithData:(NSData *)data
-{
+- (NSString *)encodingAsStringWithData:(NSData *)data{
     uchardet_handle_data(_detector, [data bytes], [data length]);
     uchardet_data_end(_detector);
-    
     const char *charset = uchardet_get_charset(_detector);
-    NSString *encoding = [NSString stringWithCString:charset encoding:NSASCIIStringEncoding];
-    
+    NSString *encoding = [NSString stringWithCString:charset encoding:NSUTF8StringEncoding];
     uchardet_reset(_detector);
-    
     return encoding;
 }
 
-
-+ (CFStringEncoding)encodingWithData:(NSData *)data
-{
++ (NSStringEncoding)encodingWithData:(NSData *)data{
     return [[[UniversalDetector alloc] init] encodingWithData:data];
 }
 
-
-+(NSString *)encodingAsStringWithData:(NSData *)data
-{
++ (NSString *)encodingAsStringWithData:(NSData *)data{
     return [[[UniversalDetector alloc] init] encodingAsStringWithData:data];
 }
 

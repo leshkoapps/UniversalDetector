@@ -14,28 +14,12 @@
     uchardet_t _detector;
 }
 
-/**
- Detect encoding of given NSData.
- @return encoding of the given NSData, or kCFStringEncodingInvalidId if the encoding cannot be determined OR is ASCII.
- */
-- (CFStringEncoding)encodingWithData:(NSData *)data;
+- (NSStringEncoding)encodingWithData:(NSData *)data;
 
-/**
- Detect encoding of given NSData.
- @return encoding of the given NSData as string, or empty string if the encoding cannot be determined OR is ASCII.
- */
 - (NSString *)encodingAsStringWithData:(NSData *)data;
 
-/**
- Create a instance of detector and detect encoding of given NSData.
- @return encoding of the given NSData, or kCFStringEncodingInvalidId if the encoding cannot be determined OR is ASCII.
- */
-+ (CFStringEncoding)encodingWithData:(NSData *)data;
++ (NSStringEncoding)encodingWithData:(NSData *)data;
 
-/**
- Detect encoding of given NSData.
- @return encoding of the given NSData as string, or empty string if the encoding cannot be determined OR is ASCII.
- */
 + (NSString *)encodingAsStringWithData:(NSData *)data;
 
 @end
