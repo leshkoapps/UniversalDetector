@@ -24,6 +24,7 @@
     uchardet_delete(_detector);
 }
 
+
 - (NSStringEncoding)encodingWithData:(NSData *)data{
     
     NSString *encodingName = [self encodingAsStringWithData:data];
