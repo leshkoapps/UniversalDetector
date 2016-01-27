@@ -29,12 +29,12 @@
     
     NSString *encodingName = [self encodingAsStringWithData:data];
     if ([encodingName isEqualToString:@""] || encodingName==nil) {
-        return NSASCIIStringEncoding;
+        return 0;
     }
 
     CFStringEncoding encoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)encodingName);
     if(encoding==kCFStringEncodingInvalidId) {
-        return NSASCIIStringEncoding;
+        return 0;
     }
     
     // UniversalDetector detects CP949 but returns "EUC-KR" because CP949 lacks an IANA name.
@@ -44,9 +44,7 @@
     };
     
     NSStringEncoding result = CFStringConvertEncodingToNSStringEncoding(encoding);
-    if (result==0){
-        result = NSASCIIStringEncoding;
-    }
+    
     return result;
 }
 
