@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
-  s.name          = 'UniversalDetector'
+  s.name          = 'LSUniversalDetector'
   s.version       = '1.4.0'
   s.license       = { :type => 'Mozilla Public License', :file => 'LICENSE' }
   s.summary       =  'Wrapper of uchardet for Objective-C.'
   s.description   =  'UniversalDetector takes a sequence of bytes in an unknown character encoding without any additional information, and attempts to determine the encoding of the text.'
   s.homepage      = 'https://github.com/siuying/UniversalDetector'
   s.author        = { 'Francis Chong' => 'francis@ignition.hk' }
-  s.source        = { :git => 'https://github.com/siuying/UniversalDetector.git', 
+  s.source        = { :git => 'https://github.com/leshkoapps/UniversalDetector', 
     :tag => s.version.to_s,
     :submodules => true }
 
