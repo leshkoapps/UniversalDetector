@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
     :tag => s.version.to_s,
     :submodules => true }
 
-  s.source_files        = 'UniversalDetector/*.{h,m}', 'external/uchardet/src/*.{h,cpp}'
+  s.source_files        = 'UniversalDetector/*.{h,m}', 'external/uchardet/src/*.{h,cpp}', 'external/uchardet/src/LangModels/*.{h,cpp}'
   s.public_header_files = 'UniversalDetector/*.h', 'external/uchardet/src/uchardet.h'
   s.preserve_paths      = 'external/uchardet/src/*.{tab}'
 
