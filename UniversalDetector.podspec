@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name          = 'LSUniversalDetector'
+  s.name          = 'UniversalDetector'
   s.version       = '1.4.0'
   s.license       = { :type => 'Mozilla Public License', :file => 'LICENSE' }
   s.summary       =  'Wrapper of uchardet for Objective-C.'
@@ -7,8 +7,7 @@ Pod::Spec.new do |s|
   s.homepage      = 'https://github.com/siuying/UniversalDetector'
   s.author        = { 'Francis Chong' => 'francis@ignition.hk' }
   s.source        = { :git => 'https://github.com/leshkoapps/UniversalDetector', 
-    :tag => s.version.to_s,
-    :submodules => true }
+    :tag => s.version.to_s }
 
   s.source_files        = 'UniversalDetector/*.{h,m}', 'external/uchardet/src/*.{h,cpp}', 'external/uchardet/src/LangModels/*.{h,cpp}'
   s.public_header_files = 'UniversalDetector/*.h', 'external/uchardet/src/uchardet.h'
